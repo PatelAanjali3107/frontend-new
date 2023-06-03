@@ -13,6 +13,7 @@ import LoginConfirmModal from "../../Components/Modal/LoginConfirmModal";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { Link } from "react-router-dom";
 import InvoiceModal from "../../Components/Modal/invoiceModal";
+import { axiosApi } from "../../Helper/api_helper";
 const ShowService = (props) => {
   const dispatch = useDispatch();
   const isUser = getToken();
@@ -337,15 +338,16 @@ const ShowService = (props) => {
     let payload = {
       type: type,
       phone: values?.mobileNo,
-      operator: selectedMplanOperator?.operator,
+      operator: values?.operator,
     };
 
-    if (values?.mobileNo && selectedMplanOperator.operator) {
-      dispatch(getPlans(payload));
-      // await props.getPlanDetails(payload).then((res) => {
-      //   setPlanlisting(res.data);
-      //   setIsPlanShow(true);
-      // });
+    if (values?.mobileNo && values?.operator) {
+      const API_URL = process.env.REACT_APP_FETCH_URL;
+      console.log(payload, API_URL + "/mlan/getMplan");
+      const res = axiosApi.post(API_URL + "/mlan/getMplan", payload)
+        setPlanlisting(res.data);
+        setIsPlanShow(true);
+      
     }
   };
 

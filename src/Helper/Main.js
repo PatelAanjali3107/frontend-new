@@ -16,14 +16,14 @@ const Main = (props) => {
   const user = getUser();
 
   return (
-    <div>
+    <>
       <ToastContainer />
       <Header {...user} />
-      <div className="content-pages bg-light">
+      <div className="content-pages bg-light overflow-hidden">
       <Contain>{props?.children}</Contain>
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 
